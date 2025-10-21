@@ -5,23 +5,33 @@ import API from '../api';
 export default function Login({ onAuth }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [mode, setMode] = useState('login'); // login or register
+  const [mode, setMode] = useState('login');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!username || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
     try {
       const url = mode === 'login' ? '/auth/login' : '/auth/register';
       const res = await API.post(url, { username, password });
       const token = res.data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
       API.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
       onAuth && onAuth({ username });
-      navigate('/'); // redirect to main page
+      navigate('/');
     } catch (err) {
       console.error(err);
-      alert('Auth failed');
+      alert(mode === 'login' ? 'Login failed. Please check your credentials.' : 'Registration failed. Username may already exist.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,50 +40,70 @@ export default function Login({ onAuth }) {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      padding: '28px' // matches your body padding in styles.css
-    }}>
-      <div className="card form" style={{
-        padding: '40px 30px',
-        textAlign: 'center',
-        width: '100%',
-        maxWidth: 400, // keeps the card from stretching
-        borderRadius: '14px', // matches your card style
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 15 // spacing between inputs/buttons
-      }}>
-        <h2 style={{ marginBottom: 10 }}>{mode === 'login' ? 'Login' : 'Register'}</h2>
+    <div className="login-container">
+      <div className="glass-card login-card">
+        <h1 className="login-title">
+          {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+        </h1>
+        <p className="login-subtitle">
+          {mode === 'login' 
+            ? 'Sign in to access your tasks and collaborate with your team' 
+            : 'Join TaskFlow to start organizing your work'}
+        </p>
 
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
+        <form onSubmit={submit}>
+          <div className="form-group">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={loading}
+            />
+          </div>
 
-        <input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+            />
+          </div>
 
-        <div className="row">
-          <button className="btn" onClick={e => { e.preventDefault(); submit(e); }} style={{ flex: 1 }}>
-            {mode === 'login' ? 'Login' : 'Register'}
+          <button 
+            type="submit" 
+            className="btn btn-primary" 
+            style={{ width: '100%' }}
+            disabled={loading}
+          >
+            {loading ? 'Please wait...' : (mode === 'login' ? 'Sign In' : 'Sign Up')}
           </button>
-          <button className="btn ghost" onClick={e => { e.preventDefault(); setMode(mode === 'login' ? 'register' : 'login'); }} style={{ flex: 1 }}>
-            {mode === 'login' ? 'Switch' : 'Switch'}
-          </button>
-        </div>
+        </form>
 
-        <button className="btn ghost" onClick={oauthGithub}>
-          Login with GitHub
+        <div className="divider">or</div>
+
+        <button 
+          className="btn btn-secondary" 
+          style={{ width: '100%' }} 
+          onClick={oauthGithub}
+          disabled={loading}
+        >
+          Continue with GitHub
         </button>
+
+        <p className="toggle-text">
+          {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
+          <span 
+            className="toggle-link" 
+            onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
+          >
+            {mode === 'login' ? 'Sign up' : 'Sign in'}
+          </span>
+        </p>
       </div>
     </div>
   );

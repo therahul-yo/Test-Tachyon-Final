@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 // routes
 app.use('/api/tasks', taskRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 // basic health
 app.get('/healthz', (req, res) => res.json({ ok: true }));

@@ -26,8 +26,8 @@ export default function TaskList({ tasks, onChange }) {
     setLoadingId(task.id);
     try {
       if (!task.completed) {
-        const res = await API.patch(`/api/tasks/${task.id}/complete`);
-        handleTaskUpdated(res.data);
+        await API.patch(`/api/tasks/${task.id}/complete`);
+        refreshTasks(); // Refresh the task list
       } else {
         alert('Task is already completed');
       }
@@ -46,7 +46,7 @@ export default function TaskList({ tasks, onChange }) {
     setLoadingId(task.id);
     try {
       await API.delete(`/api/tasks/${task.id}`);
-      handleTaskDeleted(task.id);
+      refreshTasks(); // Refresh the task list
     } catch (err) {
       console.error(err);
       alert('Failed to delete task');

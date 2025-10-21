@@ -20,7 +20,7 @@ app.use('/api/auth', authRoutes);
 // basic health
 app.get('/healthz', (req, res) => res.json({ ok: true }));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8001;
 const server = http.createServer(app);
 
 // integrate socket.io for real-time chat
@@ -39,8 +39,8 @@ io.on('connection', (socket) => {
 });
 
 db.sequelize.sync().then(() => {
-  server.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server listening on http://0.0.0.0:${PORT}`);
   });
 }).catch(err => {
   console.error('DB sync error:', err);

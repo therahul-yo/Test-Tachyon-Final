@@ -338,8 +338,8 @@ textarea {
 }
 
 .task-item:hover {
-  border-color: var(--accent-purple);
-  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--accent-orange);
+  background: rgba(255, 119, 0, 0.05);
 }
 
 .task-item.completed {

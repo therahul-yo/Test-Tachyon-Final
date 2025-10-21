@@ -60,12 +60,12 @@ export default function TaskList({ tasks, onChange }) {
       <h3 className="card-title">All Tasks ({tasks.length})</h3>
       <div>
         {tasks.map((task) => (
-          <div key={task.id} className={`task-item ${task.completed ? 'completed' : ''}`}>
+          <div key={task.id} className={`task-item ${task.status === 'done' ? 'completed' : ''}`}>
             <div className="task-content">
               <h4 className="task-title">{task.title}</h4>
               {task.description && <p className="task-description">{task.description}</p>}
               <div className="task-meta">
-                <span>Status: {task.completed ? '✅ Completed' : '⏳ Pending'}</span>
+                <span>Status: {task.status === 'done' ? '✅ Completed' : task.status === 'in-progress' ? '🔄 In Progress' : '⏳ Pending'}</span>
                 {task.dueDate && <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>}
               </div>
             </div>
@@ -73,10 +73,10 @@ export default function TaskList({ tasks, onChange }) {
               <button
                 className="btn btn-secondary"
                 onClick={() => handleComplete(task)}
-                disabled={loadingId === task.id || task.completed}
+                disabled={loadingId === task.id || task.status === 'done'}
                 style={{ padding: '0.5rem 1rem' }}
               >
-                {task.completed ? 'Completed' : 'Complete'}
+                {task.status === 'done' ? 'Completed' : 'Complete'}
               </button>
               <button
                 className="btn btn-danger"

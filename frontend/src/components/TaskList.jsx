@@ -25,7 +25,7 @@ export default function TaskList({ tasks, onChange }) {
   const handleComplete = async (task) => {
     setLoadingId(task.id);
     try {
-      if (!task.completed) {
+      if (task.status !== 'done') {
         await API.patch(`/api/tasks/${task.id}/complete`);
         refreshTasks(); // Refresh the task list
       } else {

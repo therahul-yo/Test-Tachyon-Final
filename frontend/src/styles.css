@@ -396,12 +396,12 @@ textarea {
   margin-bottom: 0.5rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
-  border-left: 3px solid var(--accent-purple);
+  border-left: 3px solid var(--accent-orange);
 }
 
 .chat-user {
   font-weight: 600;
-  color: var(--accent-purple);
+  color: var(--accent-orange);
   margin-bottom: 0.25rem;
 }
 

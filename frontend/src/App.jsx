@@ -5,7 +5,7 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import Login from './components/Login';
 import Chat from './components/Chat';
-import Logout from './components/Logout';
+import Logout from './components/logout';
 
 function Navigation({ user, onLogout }) {
   const scrollToSection = (id) => {

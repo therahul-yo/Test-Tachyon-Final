@@ -205,14 +205,14 @@ html {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: var(--accent-purple);
-  box-shadow: 0 20px 40px var(--glow-purple);
+  border-color: var(--accent-orange);
+  box-shadow: 0 20px 40px var(--glow-orange);
   transform: translateY(-5px);
 }
 

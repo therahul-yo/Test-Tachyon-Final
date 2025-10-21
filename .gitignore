@@ -2,3 +2,9 @@
 # Environment files
 *.env
 *.env.*
+node_modules/
+frontend/node_modules/
+backend/database.sqlite
+dist/
+build/
+.vite/

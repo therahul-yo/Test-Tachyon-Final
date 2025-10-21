@@ -9,38 +9,63 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS: allow all CRUD methods
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// routes
+// ✅ Routes
 app.use('/api/tasks', taskRoutes);
 app.use('/api/auth', authRoutes);
 
-// basic health
+// ✅ Health check
 app.get('/healthz', (req, res) => res.json({ ok: true }));
 
 const PORT = process.env.PORT || 8001;
 const server = http.createServer(app);
 
-// integrate socket.io for real-time chat
+// ✅ Socket.io setup
 const { Server } = require('socket.io');
-const io = new Server(server, { cors: { origin: '*' } });
-
-io.on('connection', (socket) => {
-  console.log('socket connected', socket.id);
-  socket.on('join', (room) => { socket.join(room); });
-  socket.on('message', (payload) => {
-    if(payload && payload.room) {
-      io.to(payload.room).emit('message', { user: payload.user, text: payload.text, ts: Date.now() });
-    }
-  });
-  socket.on('disconnect', () => console.log('socket disconnected', socket.id));
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: true
+  }
 });
 
+io.on('connection', (socket) => {
+  console.log('Socket connected:', socket.id);
+
+  socket.on('join', (room) => {
+    socket.join(room);
+  });
+
+  socket.on('message', (payload) => {
+    if (payload?.room) {
+      io.to(payload.room).emit('message', {
+        user: payload.user,
+        text: payload.text,
+        ts: Date.now()
+      });
+    }
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Socket disconnected:', socket.id);
+  });
+});
+
+// ✅ Start server after DB sync
 db.sequelize.sync().then(() => {
   server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server listening on http://0.0.0.0:${PORT}`);
+    console.log(`Server listening on http://localhost:${PORT}`);
   });
 }).catch(err => {
   console.error('DB sync error:', err);

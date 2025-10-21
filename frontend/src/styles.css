@@ -381,6 +381,80 @@ textarea {
 }
 
 /* Chat Messages */
+/* Chat Join/Create Room - reuse login styling */
+.chat-room-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.chat-room-card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.chat-room-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chat-room-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.chat-room-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.chat-room-input-group input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.chat-room-input-group input:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px var(--glow-orange);
+}
+
+.chat-room-input-group .btn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.chat-room-input-group .btn-primary {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+  color: white;
+  box-shadow: 0 10px 30px var(--glow-orange);
+}
+
+.chat-room-input-group .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px var(--glow-orange-strong);
+}
+
 .chat-container {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);

@@ -5,4 +5,4 @@ This project integrates:
 - Topic 2: JWT Authentication + GitHub OAuth skeleton
 - Topic 4: Real-time Chat via Socket.IO
 
-Run backend and frontend separately. See backend/README.md and frontend/README.md for details.
+

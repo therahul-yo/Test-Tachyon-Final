@@ -122,16 +122,16 @@ function MainPage({ user }) {
 }
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  // Initialize user state from localStorage to prevent redirect on refresh
+  const [user, setUser] = useState(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    const username = localStorage.getItem('username');
+    if (token && username) {
       API.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-      // Fetch user data or set a default user
-      setUser({ username: localStorage.getItem('username') || 'User' });
+      return { username };
     }
-  }, []);
+    return null;
+  });
 
   const handleAuth = (userData) => {
     setUser(userData);

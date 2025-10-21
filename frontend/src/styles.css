@@ -285,14 +285,14 @@ textarea {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
   color: white;
-  box-shadow: 0 10px 30px var(--glow-purple);
+  box-shadow: 0 10px 30px var(--glow-orange);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px var(--glow-purple);
+  box-shadow: 0 15px 40px var(--glow-orange-strong);
 }
 
 .btn-secondary {
@@ -302,7 +302,7 @@ textarea {
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent-purple);
+  border-color: var(--accent-orange);
   background: var(--glass-border);
 }
 

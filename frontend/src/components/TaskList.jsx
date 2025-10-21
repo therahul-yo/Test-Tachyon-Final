@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import API from '../api';
 
-export default function TaskList({ tasks, setTasks }) {
+export default function TaskList({ tasks, onChange }) {
   const [loadingId, setLoadingId] = useState(null); // Track which task is loading
 
   if (!tasks || tasks.length === 0) {
@@ -16,14 +16,9 @@ export default function TaskList({ tasks, setTasks }) {
     );
   }
 
-  // Update a single task in state
-  const handleTaskUpdated = (updatedTask) => {
-    setTasks(prev => prev.map(t => t.id === updatedTask.id ? updatedTask : t));
-  };
-
-  // Remove a task from state
-  const handleTaskDeleted = (id) => {
-    setTasks(prev => prev.filter(t => t.id !== id));
+  // Trigger parent's onChange callback to refresh tasks
+  const refreshTasks = () => {
+    if (onChange) onChange();
   };
 
   // Handle completing a task

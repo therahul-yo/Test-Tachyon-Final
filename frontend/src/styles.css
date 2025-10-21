@@ -500,7 +500,7 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-purple);
+  background: var(--accent-orange);
 }
 
 /* Responsive */

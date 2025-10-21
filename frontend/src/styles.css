@@ -156,7 +156,7 @@ html {
   font-weight: 700;
   text-align: center;
   margin-bottom: 3rem;
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-purple));
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

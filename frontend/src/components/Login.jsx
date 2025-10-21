@@ -18,7 +18,7 @@ export default function Login({ onAuth }) {
 
     setLoading(true);
     try {
-      const url = mode === 'login' ? '/auth/login' : '/auth/register';
+      const url = mode === 'login' ? '/api/auth/login' : '/api/auth/register';
       const res = await API.post(url, { username, password });
       const token = res.data.token;
       localStorage.setItem('token', token);
@@ -36,7 +36,7 @@ export default function Login({ onAuth }) {
   };
 
   const oauthGithub = () => {
-    window.location.href = '/auth/github';
+    window.location.href = '/api/auth/github';
   };
 
   return (

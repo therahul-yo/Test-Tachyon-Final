@@ -16,7 +16,7 @@ exports.createTask = async (req, res) => {
 exports.listTasks = async (req, res) => {
   try {
     const { page=1, limit=10, status } = req.query;
-    const where = {};
+    const where = { userId: req.user.id };
     if (status) where.status = status;
     const offset = (page-1)*limit;
     const tasks = await Task.findAll({ 

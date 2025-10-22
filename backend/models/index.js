@@ -17,4 +17,8 @@ db.sequelize = sequelize;
 db.Task = require('./task')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 
+// Define associations
+db.User.hasMany(db.Task, { foreignKey: 'userId', as: 'tasks' });
+db.Task.belongsTo(db.User, { foreignKey: 'userId', as: 'user' });
+
 module.exports = db;

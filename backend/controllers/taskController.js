@@ -81,7 +81,12 @@ exports.deleteTask = async (req, res) => {
 // ✅ New function to mark task as completed
 exports.completeTask = async (req, res) => {
   try {
-    const task = await Task.findByPk(req.params.id);
+    const task = await Task.findOne({
+      where: {
+        id: req.params.id,
+        userId: req.user.id
+      }
+    });
     if (!task) return res.status(404).json({ error: 'Task not found' });
 
     task.status = 'done';

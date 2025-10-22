@@ -9,7 +9,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('pending','in-progress','done'),
       defaultValue: 'pending'
     },
-    dueDate: DataTypes.DATEONLY
+    dueDate: DataTypes.DATEONLY,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
+    }
   }, {
     timestamps: true
   });

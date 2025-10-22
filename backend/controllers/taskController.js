@@ -3,7 +3,10 @@ const Task = db.Task;
 
 exports.createTask = async (req, res) => {
   try {
-    const task = await Task.create(req.body);
+    const task = await Task.create({
+      ...req.body,
+      userId: req.user.id
+    });
     return res.status(201).json(task);
   } catch (err) {
     return res.status(400).json({ error: err.message });
